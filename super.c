@@ -453,6 +453,7 @@ static struct pmfs_inode *pmfs_init(struct super_block *sb,
 	de->name_len = 1;
 	de->de_len = cpu_to_le16(PMFS_DIR_REC_LEN(de->name_len));
 	strcpy(de->name, ".");
+	pmfs_flush_buffer(de, PMFS_DIR_REC_LEN(1), false);
 	de = (struct pmfs_direntry *)((char *)de + le16_to_cpu(de->de_len));
 	de->ino = cpu_to_le64(PMFS_ROOT_INO);
 	de->de_len = cpu_to_le16(sb->s_blocksize - PMFS_DIR_REC_LEN(1));
